@@ -71,13 +71,13 @@ One or several ECS agent templates can be defined for the Amazon EC2 Container S
 -   `Template name` is used (prefixed with the cloud's name) for the task definition in ECS.
 -   `Label`: agent labels used in conjunction with the job level configuration "Restrict where the project can be run / Label expression". ECS agent label could identify the Docker image used for the agent (e.g. `docker` for the jenkinsci/inbound-agent).
 -   `Docker image`: identifier of the Docker image to use to create the agents
-    `Filesystem root`: working directory used by Jenkins (e.g. `/home/jenkins/`).
-    `Memory`: number of MiB of memory reserved for the container. If your container attempts to exceed the memory allocated here, the container is killed.
+-   `Filesystem root`: working directory used by Jenkins (e.g. `/home/jenkins/`).
+-   `Memory`: number of MiB of memory reserved for the container. If your container attempts to exceed the memory allocated here, the container is killed.
 -   The number of `cpu units` to reserve for the container. A container instance has 1,024 cpu units for every CPU core.
-    Advanced Configuration
+######   Advanced Configuration
 
-*   `Override entrypoint`: overwritten Docker image entrypoint. Container command can't be overriden as it is used to pass jenkins agent connection parameters.
-*   `JVM arguments`: additional arguments for the JVM, such as `-XX:MaxPermSize` or GC options.
+-   `Override entrypoint`: overwritten Docker image entrypoint. Container command can't be overriden as it is used to pass jenkins agent connection parameters.
+-   `JVM arguments`: additional arguments for the JVM, such as `-XX:MaxPermSize` or GC options.
 
 #### Network and firewalls
 
@@ -86,14 +86,14 @@ Running the Jenkins master and the ECS container instances in the same Amazon VP
 _Firewalls_
 If you enable network restrictions between the Jenkins master and the ECS cluster container instances,
 
-Fix the TCP listen port for JNLP agents of the Jenkins master (e.g. `5000`) navigating in the "Manage Jenkins / Configure Global Security" screen
-Allow TCP traffic from the ECS cluster container instances to the Jenkins master on the listen port for JNLP agents (see above) and the HTTP(S) port.
+- Fix the TCP listen port for JNLP agents of the Jenkins master (e.g. `5000`) navigating in the "Manage Jenkins / Configure Global Security" screen
+- Allow TCP traffic from the ECS cluster container instances to the Jenkins master on the listen port for JNLP agents (see above) and the HTTP(S) port.
 
 _Network Address Translation and Reverse Proxies_
 In case of Network Address Translation rules between the ECS cluster container instances and the Jenkins master, ensure that the JNLP agents will use the proper hostname to connect to the Jenkins master doing on of the following:
 
-Define the proper hostname of the Jenkins master defining the system property `hudson.TcpSlaveAgentListener.hostName` in the launch command
-Use the advanced configuration option "Tunnel connection through" in the configuration of the Jenkins Amazon EC2 Container Service Cloud (see above).
+- Define the proper hostname of the Jenkins master defining the system property `hudson.TcpSlaveAgentListener.hostName` in the launch command
+- Use the advanced configuration option "Tunnel connection through" in the configuration of the Jenkins Amazon EC2 Container Service Cloud (see above).
 
 ### IAM Permissions
 
